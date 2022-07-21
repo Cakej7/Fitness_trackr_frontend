@@ -1,5 +1,3 @@
-import Swal from "sweetalert2";
-
 const APIURL = 'https://fitnesstrac-kr.herokuapp.com/api'
 
 

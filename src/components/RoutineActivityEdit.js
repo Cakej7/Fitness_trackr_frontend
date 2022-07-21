@@ -4,8 +4,6 @@ import { editRoutineActivity, deleteActivityFromRoutine } from '../api';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-
-
 const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
     // get activities
     useEffect(() => {
@@ -48,23 +46,24 @@ const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
 
     return (
 
-        <div>
+        <div className='formStyle'>
             <h1>Edit Activity</h1>
             <p>{`Name: ${routineActivityToEdit.name}`}</p>
             <p>{`Description: ${routineActivityToEdit.description}`}</p>
             <form>
-                <label>Duration: </label>
+                <label className='nudge'>Duration: </label>
                 <input
                     type='number'
                     onChange={(e) => { setDuration(e.target.value) }}
                 />
-                <label>Count: </label>
+                <label className='nudge'>Count: </label>
                 <input
                     type='number'
                     onChange={(e) => { setCount(e.target.value) }}
                 />
 
                 <button
+                        className='nudge'
                         onClick={(e) => {
                             e.preventDefault();
                             Swal.fire({

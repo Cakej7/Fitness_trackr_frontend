@@ -15,9 +15,9 @@ const AllRoutines = ({ routines, setRoutines }) => {
 
 
     return (
-        <div>
+        <div className='centerDiv'>
             <h1>Public Routines</h1>
-            <div>
+            <div className='cardStyle'>
                 {routines.map(routine =>
                     // <div key={routine.id}>
                     //     <h2>{`Routine: ${routine.name}`}</h2>
@@ -35,7 +35,7 @@ const AllRoutines = ({ routines, setRoutines }) => {
                     //     )}
 
                     // </div>
-                    <Card key={routine.id}>
+                    <Card key={routine.id} className='cardStyle'>
                         <Card.Header as="h5">{routine.name}</Card.Header>
                         <Card.Body>
                             <Card.Title>Goal: </Card.Title>

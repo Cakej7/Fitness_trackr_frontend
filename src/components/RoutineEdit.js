@@ -12,7 +12,7 @@ const EditRoutine = ({ routines }) => {
     const [routineToEdit] = routines.filter(routine => routine.id === routineId)
     const [name, setName] = useState(routineToEdit?.name)
     const [goal, setGoal] = useState(routineToEdit?.goal)
-    const [isPublic, setIsPublic] = useState(routineToEdit?.isPublic)
+    const [isPublic, setIsPublic] = useState(false)
 
     const newRoutine = {
         name,
@@ -22,33 +22,34 @@ const EditRoutine = ({ routines }) => {
 
     return (
 
-        <div>
+        <div className='centerDiv'>
             <h1>Edit Routine</h1>
             <form>
-                <label>Routine Name: </label>
+                <label className='nudge'>Routine Name: </label>
                 <input
                     type='text'
                     placeholder={routineToEdit?.name}
                     onChange={(e) => setName(e.target.value)}
                 />
 
-                <label>Routine Goal: </label>
+                <label className='nudge'>Routine Goal: </label>
                 <input
                     type='text'
                     placeholder={routineToEdit?.goal}
                     onChange={(e) => setGoal(e.target.value)}
                 />
 
-                <label>Private: </label>
+                <label className='nudge'>Private: </label>
                 <input
                     type='checkbox'
-                    value={routineToEdit?.isPublic}
+                    value={routineToEdit.isPublic}
                     onChange={(e) => setIsPublic(e.target.value)}
                 />
             </form>
 
             <span>
                 <button
+                    className='nudge'
                     onClick={async (e) => {
                         e.preventDefault()
                         Swal.fire({

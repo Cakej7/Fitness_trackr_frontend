@@ -32,10 +32,10 @@ const AddActivityToRoutine = ({ activities, setActivities }) => {
 
     return (
 
-        <div>
-            <h1>New Activity</h1>
+        <div className='formStyle'>
+            <h1>Add Activity To Routine</h1>
             <form>
-                <label>Activity:</label>
+                <label className='nudge'>Activity:</label>
                 <select
                     onChange={(e) => setActivityId(e.target.value)}
                 >
@@ -49,14 +49,14 @@ const AddActivityToRoutine = ({ activities, setActivities }) => {
                     })}
                 </select>
 
-                <label>Count: </label>
+                <label className='nudge'>Count: </label>
                 <input
                     type='number'
                     required
                     onChange={(e) => setCount(e.target.value)}
                 />
 
-                <label>Duration: </label>
+                <label className='nudge'>Duration: </label>
                 <input
                     type='number'
                     required
@@ -64,6 +64,7 @@ const AddActivityToRoutine = ({ activities, setActivities }) => {
                 />
 
                 <button
+                    className='nudge'
                     onClick={(e) => {
                         e.preventDefault();
                         Swal.fire({

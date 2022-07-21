@@ -13,19 +13,37 @@
     margin: 5px;
 }
 
-h1 {
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-#homeP {
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-}
-
 button {
     background-color: rgb(206, 239, 239);
     color: rgb(0, 0, 0);
+}
+
+.centerDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2vh;
+}
+
+.cardStyle {
+    margin: 10px;
+    text-align: center;
+    width: 40vw;
+}
+
+#homeStyle {
+    margin: 15vh;
+}
+
+.formStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15vh;
+}
+
+.nudge {
+    margin: 15px;
 }

@@ -18,12 +18,12 @@ const NavBar = ({ token }) => {
                    <button>Home</button>
                 </Link>
 
-                {token ?
+                {!token ?
+                    null
+                    :
                     <Link to="/MyRoutines">
                         <button>My Routines</button>
                     </Link>
-                    :
-                    null
                 }
 
                 <Link to="/Routines">
@@ -34,20 +34,20 @@ const NavBar = ({ token }) => {
                     <button>Activities</button>
                 </Link>
 
-                {token ?
+                {!token ?
+                <>
+                    <Link to="/Login">
+                        <button>Login</button>
+                    </Link>
+
+                    <Link to="/Register">
+                        <button>Register</button>
+                    </Link>
+                 </>
+                    :
                     <Link to="/"onClick={handleLogOut}>
                         <button>Log Out</button>
                     </Link>
-                    :
-                    <>
-                        <Link to="/Login">
-                            <button>Login</button>
-                        </Link>
-
-                        <Link to="/Register">
-                            <button>Register</button>
-                        </Link>
-                    </>
                     
                 }
             </ div>

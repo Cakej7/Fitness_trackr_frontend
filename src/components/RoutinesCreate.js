@@ -18,17 +18,17 @@ const CreateRoutineForm = ({ routines, setRoutines }) => {
 
     return (
 
-        <div>
+        <div className='formStyle'>
             <h1 >Add New Routine</h1>
-            <form  >
-                <label>Routine Name: </label>
+            <form>
+                <label className='nudge'>Routine Name: </label>
                 <input
                     type="text"
                     required
                     onChange={(e) => { setRoutineName(e.target.value) }}
                 />
 
-                <label>Routine Goal: </label>
+                <label className='nudge'>Routine Goal: </label>
                 <input
                     type="text"
                     required
@@ -36,6 +36,7 @@ const CreateRoutineForm = ({ routines, setRoutines }) => {
                 />
 
                 <button
+                    className='nudge'
                     onClick={async (e) => {
                         e.preventDefault();
                         const routineToAdd = await createRoutine(newRoutine);

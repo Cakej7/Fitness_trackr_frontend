@@ -15,23 +15,24 @@ const CreateActivityForm = ({ activities, setActivities}) => {
 
 // Send an error if the activity name already exists
     return (
-        <div>
+        <div className='formStyle'>
             <h1>Add New Activity</h1>
             <form>
-                <label>Activity Name: </label>
+                <label className='nudge'>Activity Name: </label>
                 <input
                     type='text'
                     required
                     onChange={(e) => { setName(e.target.value) }}
                 />
 
-                <label>Activity Description: </label>
+                <label className='nudge'>Activity Description: </label>
                 <input
                     type='text'
                     onChange={(e) => { setDescription(e.target.value) }}
                 />
                 
                 <button
+                    className='nudge'
                     onClick={async (e) => {
                         e.preventDefault()
                         const activityToAdd = createActivity(newActivity);

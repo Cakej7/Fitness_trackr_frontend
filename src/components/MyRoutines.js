@@ -37,12 +37,12 @@ const AllMyRoutines = ({ setRoutines, setActivities }) => {
 
     
     return (
-        <div>
+        <div className='centerDiv'>
             <h1>My Routines</h1>
             <Link to='/CreateRoutine'>
             <button >Add New Routine</button>
             </Link>
-            <div>
+            <div className='cardStyle'>
                 {myRoutines.map(routine =>
                     // <div key={routine.id}>
                     //     <Link to={`/EditRoutine/${routine.id}`}>
@@ -72,10 +72,10 @@ const AllMyRoutines = ({ setRoutines, setActivities }) => {
                     //     )}
                     // </div>
                     
-                    <Card key={routine.id}>
+                    <Card key={routine.id} className='cardStyle'>
                         <Card.Header as="h5">{routine.name}</Card.Header>
                         <Card.Body>
-                        <Link to={`/EditRoutine/${routine.id}`}>
+                            <Link to={`/EditRoutine/${routine.id}`}>
                             <button >Edit Routine</button>
                             </Link>
                             <Link to={`/AddActivityToRoutine/${routine.id}`}>

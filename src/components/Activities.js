@@ -22,7 +22,7 @@ const AllActivities = ({ token, activities, setActivities, setRoutines }) => {
     }, [])
 
     return (
-        <div>
+        <div className='centerDiv'>
             <h1>Activities</h1>
             {token ?
             <Link to='/CreateActivity'>
@@ -31,9 +31,9 @@ const AllActivities = ({ token, activities, setActivities, setRoutines }) => {
             :
             null        
         }
-            <div>
+            <div className='cardStyle'>
                 {activities.map(activity =>
-                    <Card key={activity.id}>
+                    <Card key={activity.id} className='cardStyle'>
                         <Card.Header as="h5">{activity.name}</Card.Header>
                         <Card.Body>
                             <Card.Text>
