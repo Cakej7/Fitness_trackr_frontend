@@ -3,27 +3,21 @@ import { getRoutinesByUser } from "../api";
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import { Routines } from '.';
 
 
-const AllMyRoutines = ({ setRoutines, setActivities }) => {
-    const [myRoutines, setMyRoutines] = useState([]);
+
+const AllMyRoutines = ({ setRoutines, setActivities, myRoutines, setMyRoutines }) => {
 
     // get routines by user
     useEffect(() => {
         async function fetchData() {
             const myRoutines = await getRoutinesByUser();
+            console.log(myRoutines)
             setMyRoutines(myRoutines)
         }
         fetchData()
-    }, [])
-
-    // get routines
-    useEffect(() => {
-        axios.get('https://fitnesstrac-kr.herokuapp.com/api/routines')
-        .then((response) => {
-            setRoutines(response.data)
-            // console.log(response.data)
-            })
     }, [])
 
     // get activities
@@ -40,75 +34,50 @@ const AllMyRoutines = ({ setRoutines, setActivities }) => {
         <div className='centerDiv'>
             <h1>My Routines</h1>
             <Link to='/CreateRoutine'>
-            <button >Add New Routine</button>
+            <Button >Add New Routine</Button>
             </Link>
+            {myRoutines.length ? 
             <div className='cardStyle'>
-                {myRoutines.map(routine =>
-                    // <div key={routine.id}>
-                    //     <Link to={`/EditRoutine/${routine.id}`}>
-                    //         <button >Edit Routine</button>
-                    //     </Link>
-                    //     <Link to={`/AddActivityToRoutine/${routine.id}`}>
-                    //         <button >Add Activity To Routine</button>
-                    //     </Link>
-                        
-
-                    //     <h3>{`Routine: ${routine.name}`}</h3>
-
-                    //     <p>{`Goal: ${routine.goal}`}</p>
-                    //     <p>{`Creator: ${routine.creatorName}`}</p>
-                    //     <h4>Activities:</h4>
-
-                    //     {routine.activities.map(activity =>
-                    //         <div key={activity.id}>
-                    //             <Link to={`/EditRoutineActivity/${routine.id}/${activity.id}`}>
-                    //                 <button>Edit Activity</button>
-                    //             </Link>
-                    //             <p>{`Name: ${activity.name}`}</p>
-                    //             <p>{`Description: ${activity.description}`}</p>
-                    //             <p>{`Duration: ${activity.duration}`}</p>
-                    //             <p>{`Count: ${activity.count}`}</p>                                
-                    //         </div>
-                    //     )}
-                    // </div>
-                    
-                    <Card key={routine.id} className='cardStyle'>
-                        <Card.Header as="h5">{routine.name}</Card.Header>
-                        <Card.Body>
-                            <Link to={`/EditRoutine/${routine.id}`}>
-                            <button >Edit Routine</button>
-                            </Link>
-                            <Link to={`/AddActivityToRoutine/${routine.id}`}>
-                            <button >Add Activity To Routine</button>
-                            </Link>
-                            <Card.Title>Goal: </Card.Title>
-                            <Card.Text>
+            {myRoutines.map(routine =>
+                <Card key={routine.id} className='cardStyle'>
+                    <Card.Header as="h1">{routine.name}</Card.Header>
+                    <Card.Body>
+                        <Link to={`/EditRoutine/${routine.id}`}>
+                            <Button >Edit Routine</Button>
+                        </Link>
+                        <Link to={`/AddActivityToRoutine/${routine.id}`}>
+                            <Button className='nudge' >Add Activity To Routine</Button>
+                        </Link>
+                        <Card.Title style={{fontSize: '1.5em', fontWeight: 'bold'}}>Goal: </Card.Title>
+                        <Card.Text>
                             {routine.goal}
-                            </Card.Text>
+                        </Card.Text>
 
-                            <Card.Title>Creator: </Card.Title>
-                            <Card.Text>
+                        <Card.Title style={{fontSize: '1.5em', fontWeight: 'bold'}}>Creator: </Card.Title>
+                        <Card.Text>
                             {routine.creatorName}
-                            </Card.Text>
+                        </Card.Text>
 
-                            <Card.Title>Attached Activities: </Card.Title>
-                            {routine.activities.map(activity =>
-                            <div key={activity.id}>
-                                <Link to={`/EditRoutineActivity/${routine.id}/${activity.id}`}>
-                                    Edit Activity
-                                </Link>
-                                <p style={{fontWeight: 'bold'}}>{activity.name}</p>
-                                <p>{`Description: ${activity.description}`}</p>
-                                <p>{`Duration: ${activity.duration}`}</p>
-                                <p>{`Count: ${activity.count}`}</p>
-                                                        
-                            </div>
-                        )}
-                            
-                        </Card.Body>
-                    </Card>
-                )}
-            </div>
+                        <Card.Title style={{fontWeight: 'bold', fontSize: '1.5em', textDecoration: 'underline'}}>Attached Activities: </Card.Title>
+                        {routine.activities.map(activity =>
+                        <div key={activity.id} >
+                            <p style={{fontWeight: 'bold'}}>{activity.name}</p>
+                            <p>{`Description: ${activity.description}`}</p>
+                            <p>{`Count: ${activity.count}`}</p>
+                            <Link to={`/EditRoutineActivity/${routine.id}/${activity.id}`}>
+                                <Button style={{marginBottom: '40px'}}>Edit Activity</Button>
+                            </Link>
+                        </div>
+                    )}
+                        
+                    </Card.Body>
+                </Card>
+            )}
+        </div>
+        :
+        <h4 style={{margin: '10px'}}>You don't have any routines! Try adding a new routine above.</h4>
+            }
+            
         </div>
     )
 }

@@ -19,42 +19,26 @@ const AllRoutines = ({ routines, setRoutines }) => {
             <h1>Public Routines</h1>
             <div className='cardStyle'>
                 {routines.map(routine =>
-                    // <div key={routine.id}>
-                    //     <h2>{`Routine: ${routine.name}`}</h2>
-                    //     <p>{`Goal: ${routine.goal}`}</p>
-                    //     <p>{`Creator: ${routine.creatorName}`}</p>
-                    //     <h4>Activities:</h4>
-                    //     {routine.activities.map(activity =>
-                    //         <div key={activity.id}>
-                    //             <p>{`Name: ${activity.name}`}</p>
-                    //             <p>{`Description: ${activity.description}`}</p>
-                    //             <p>{`Duration: ${activity.duration}`}</p>
-                    //             <p>{`Count: ${activity.count}`}</p>
-                    //         </div>
-
-                    //     )}
-
-                    // </div>
                     <Card key={routine.id} className='cardStyle'>
-                        <Card.Header as="h5">{routine.name}</Card.Header>
+                        <Card.Header as="h1">{routine.name}</Card.Header>
                         <Card.Body>
-                            <Card.Title>Goal: </Card.Title>
+                            <Card.Title style={{fontSize: '1.5em', fontWeight: 'bold'}}>Goal: </Card.Title>
                             <Card.Text>
                             {routine.goal}
                             </Card.Text>
 
-                            <Card.Title>Creator: </Card.Title>
+                            <Card.Title style={{fontSize: '1.5em', fontWeight: 'bold'}}>Creator: </Card.Title>
                             <Card.Text>
                             {routine.creatorName}
                             </Card.Text>
 
-                            <Card.Title>Activities: </Card.Title>
+                            <Card.Title style={{fontWeight: 'bold', fontSize: '1.5em', textDecoration: 'underline'}}>
+                                Attached Activities: </Card.Title>
                             {routine.activities.map(activity =>
                             <div key={activity.id}>
                                 <p style={{fontWeight: 'bold'}}>{`${activity.name}`}</p>
                                 <p>{`Description: ${activity.description}`}</p>
-                                <p>{`Duration: ${activity.duration}`}</p>
-                                <p>{`Count: ${activity.count}`}</p>
+                                <p style={{marginBottom: '40px'}}>{`Count: ${activity.count}`}</p>
                             </div>)}
                             
                         </Card.Body>

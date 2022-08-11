@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { createActivity } from '../api';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import Button from 'react-bootstrap/Button';
+
 
 const CreateActivityForm = ({ activities, setActivities}) => {
     const [ name, setName ] = useState("");
@@ -31,7 +33,7 @@ const CreateActivityForm = ({ activities, setActivities}) => {
                     onChange={(e) => { setDescription(e.target.value) }}
                 />
                 
-                <button
+                <Button
                     className='nudge'
                     onClick={async (e) => {
                         e.preventDefault()
@@ -46,7 +48,7 @@ const CreateActivityForm = ({ activities, setActivities}) => {
                         })
                         navigate('../Activities')
                     }}>Create
-                </button>
+                </Button>
 
             </form>
         </div>

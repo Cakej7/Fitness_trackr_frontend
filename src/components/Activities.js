@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import axios from 'axios'
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+
 
 const AllActivities = ({ token, activities, setActivities, setRoutines }) => {
     useEffect(() => {
@@ -26,7 +28,7 @@ const AllActivities = ({ token, activities, setActivities, setRoutines }) => {
             <h1>Activities</h1>
             {token ?
             <Link to='/CreateActivity'>
-                <button>Add New Activity</button>
+                <Button>Add New Activity</Button>
             </Link>
             :
             null        

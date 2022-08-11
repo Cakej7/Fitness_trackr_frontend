@@ -50,13 +50,13 @@ const APIURL = 'https://fitnesstrac-kr.herokuapp.com/api'
 // }
 
 // used to grab an already logged in user's relevant data. It is mostly helpful for verifying the user has a valid token (and is thus logged in). You must pass a valid token with this request, or it will be rejected.
-export const isLoggedIn = async (tokenArg) => {
+export const isLoggedIn = async () => {
     try {
         const response = await fetch(`${APIURL}/users/me`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${tokenArg}`,
+                "Authorization": `Bearer ${localStorage.getItem('JWT')}`,
             },
         })
         
@@ -132,7 +132,7 @@ export const getPublicRoutines = async () => {
                 'Content-Type': 'application/json',
             }
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {
@@ -153,16 +153,16 @@ export const getRoutinesByUser = async () => {
             },
         })
 
-        // const result = await response.json()
-        // console.log(result)
+        const result = await response.json()
+        console.log(result)
 
-        // return result
-        .then(response => response.json())
-        .then(result => {
-            return result;
-        })
-        .catch(console.error);
-        return response;
+        return result
+        // .then(response => response.json())
+        // .then(result => {
+        //     return result;
+        // })
+        // .catch(console.error);
+        // return response;
     
 }
 
@@ -194,7 +194,7 @@ export const createRoutine = async (routine) => {
             },
             body: JSON.stringify(routine)
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {
@@ -213,7 +213,7 @@ export const editRoutine = async (routineId, routineToEdit) => {
             },
             body: JSON.stringify(routineToEdit)
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {
@@ -231,7 +231,7 @@ export const deleteRoutine = async (routineId) => {
                 'Authorization': `Bearer ${localStorage.getItem('JWT')}`
             }
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {
@@ -250,7 +250,7 @@ export const addActivityToRoutine = async (routineId, activityToAdd) => {
             },
             body: JSON.stringify(activityToAdd)
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {
@@ -269,7 +269,7 @@ export const editRoutineActivity = async (routineActivityId, routineActivityToUp
             },
             body: JSON.stringify(routineActivityToUpdate)
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {
@@ -287,7 +287,7 @@ export const deleteActivityFromRoutine = async (routineActivityId) => {
                 'Authorization': `Bearer ${localStorage.getItem('JWT')}`
             }
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
         return result
     } catch (err) {

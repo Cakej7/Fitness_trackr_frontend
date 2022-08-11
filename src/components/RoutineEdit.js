@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { editRoutine, deleteRoutine } from '../api';
 import Swal from 'sweetalert2'
+import { Button } from 'react-bootstrap';
+import { getRoutinesByUser } from "../api";
 
-const EditRoutine = ({ routines }) => {
+const EditRoutine = ({ routines, myRoutines, setMyRoutines }) => {
+    
+    // get routines by user
+    useEffect(() => {
+        async function fetchData() {
+            const mine = await getRoutinesByUser();
+            console.log(mine)
+            setMyRoutines(mine)
+        }
+        fetchData()
+    }, [])
+
     let navigate = useNavigate()
 
     let {routineId} = useParams()
     routineId = parseInt(routineId)
 
-    const [routineToEdit] = routines.filter(routine => routine.id === routineId)
+    const [routineToEdit] = myRoutines.filter((routine) => {
+        return routine.id === routineId
+    })
     const [name, setName] = useState(routineToEdit?.name)
     const [goal, setGoal] = useState(routineToEdit?.goal)
-    const [isPublic, setIsPublic] = useState(false)
 
     const newRoutine = {
         name,
-        goal,
-        isPublic
+        goal
     }
 
     return (
@@ -38,17 +51,10 @@ const EditRoutine = ({ routines }) => {
                     placeholder={routineToEdit?.goal}
                     onChange={(e) => setGoal(e.target.value)}
                 />
-
-                <label className='nudge'>Private: </label>
-                <input
-                    type='checkbox'
-                    value={routineToEdit.isPublic}
-                    onChange={(e) => setIsPublic(e.target.value)}
-                />
             </form>
 
             <span>
-                <button
+                <Button
                     className='nudge'
                     onClick={async (e) => {
                         e.preventDefault()
@@ -72,9 +78,9 @@ const EditRoutine = ({ routines }) => {
                             }
                         })
                     }}> Delete Routine
-                </button>
+                </Button>
                 
-                <button
+                <Button
                     onClick={async (e) => {
                         e.preventDefault()
                         Swal.fire({
@@ -96,7 +102,7 @@ const EditRoutine = ({ routines }) => {
                             }
                         })
                     }}>Submit Edit
-                </button>
+                </Button>
             </span>
 
             <div>

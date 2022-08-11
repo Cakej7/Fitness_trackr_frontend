@@ -3,6 +3,7 @@ import { addActivityToRoutine } from '../api';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Button } from 'react-bootstrap';
 
 
 const AddActivityToRoutine = ({ activities, setActivities }) => {
@@ -56,14 +57,7 @@ const AddActivityToRoutine = ({ activities, setActivities }) => {
                     onChange={(e) => setCount(e.target.value)}
                 />
 
-                <label className='nudge'>Duration: </label>
-                <input
-                    type='number'
-                    required
-                    onChange={(e) => setDuration(e.target.value)}
-                />
-
-                <button
+                <Button
                     className='nudge'
                     onClick={(e) => {
                         e.preventDefault();
@@ -78,7 +72,7 @@ const AddActivityToRoutine = ({ activities, setActivities }) => {
                         navigate('../MyRoutines')
                     }
                     }
-                >Submit</button>
+                >Submit</Button>
             </form>
         </div>
     )

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const LoginUser = ({ setToken }) => {
     const [username, setUsername] = useState("")
@@ -60,19 +62,34 @@ const LoginUser = ({ setToken }) => {
  
 
     return (
-      <div>
+      // <div>
+      //   <h1>Login Here</h1>
+      //   <form onSubmit={loginFetch}>
+      //       <label>Username: </label>
+      //       <input type="text" placeholder="Username" value={username} onChange={handleUserSet}/>
+
+      //       <label>Password: </label>
+      //       <input type="password" placeholder="Password" value={password}
+      //        onChange={handlePasswordSet}/>
+
+      //       <button>Login</button>  
+      //   </form>
+      // </div>    
+      <Form onSubmit={loginFetch}>
         <h1>Login Here</h1>
-        <form onSubmit={loginFetch}>
-            <label>Username: </label>
-            <input type="text" placeholder="Username" value={username} onChange={handleUserSet}/>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Username</Form.Label>
+        <Form.Control type="text" placeholder="Enter Username" value={username} onChange={handleUserSet} />
+      </Form.Group>
 
-            <label>Password: </label>
-            <input type="password" placeholder="Password" value={password}
-             onChange={handlePasswordSet}/>
-
-            <button>Login</button>  
-        </form>
-      </div>    
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Enter password" value={password} onChange={handlePasswordSet}/>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
     )
 };
 

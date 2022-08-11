@@ -15,6 +15,8 @@ const Home = ({ token }) => {
         : 
             null
         }
+
+        <img src='/Home_page_pic.jpg' width="1000" height="700" />
     </div>
   );
 };

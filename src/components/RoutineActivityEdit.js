@@ -3,8 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { editRoutineActivity, deleteActivityFromRoutine } from '../api';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Button } from 'react-bootstrap';
+import { getRoutinesByUser } from "../api";
 
-const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
+const EditRoutineActivityForm = ({ setActivities, myRoutines, setMyRoutines }) => {
     // get activities
     useEffect(() => {
         axios.get('https://fitnesstrac-kr.herokuapp.com/api/activities')
@@ -14,14 +16,17 @@ const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
           })
     }, [])
 
-    // get routines
+    // get routines by user
     useEffect(() => {
-        axios.get('https://fitnesstrac-kr.herokuapp.com/api/routines')
-        .then((response) => {
-            setRoutines(response.data)
-            // console.log(response.data)
-            })
-    }, [])
+      async function fetchData() {
+          const mine = await getRoutinesByUser();
+          // console.log(mine)
+          setMyRoutines(mine)
+      }
+      fetchData()
+  }, [])
+
+    // console.log(editRoutineActivity(count))
 
     let navigate = useNavigate()
 
@@ -29,18 +34,39 @@ const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
     routineId = parseInt(routineId);
     activityId = parseInt(activityId);
 
+    const [routineToEdit] = myRoutines.filter((routine) => {
+      return routine.id === routineId
+    });
     
-
-    const [duration, setDuration] = useState('');
-    const [count, setCount] = useState('');
-    const [routineToEdit] = routines.filter(routine => routine.id === routineId);
-    // console.log(routines)
     const [routineActivityToEdit] = routineToEdit.activities.filter(activity => activity.id === activityId)
     const routineActivityIdToEdit = routineActivityToEdit.routineActivityId;
+    const [count, setCount] = useState('');
+    
 
     const newRoutineActivityInfo = {
-        count,
-        duration
+        count
+    }
+
+    const handleEditSubmit = (e) => {
+      e.preventDefault();
+      Swal.fire({
+          title: 'Submit these changes?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, looks good!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Success!',
+              'The count has been updated!',
+              'success'
+            )
+              editRoutineActivity(routineActivityIdToEdit, newRoutineActivityInfo)
+              navigate('../MyRoutines')
+          }
+        })
     }
 
 
@@ -50,43 +76,21 @@ const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
             <h1>Edit Activity</h1>
             <p>{`Name: ${routineActivityToEdit.name}`}</p>
             <p>{`Description: ${routineActivityToEdit.description}`}</p>
-            <form>
-                <label className='nudge'>Duration: </label>
-                <input
-                    type='number'
-                    onChange={(e) => { setDuration(e.target.value) }}
-                />
+            <form onSubmit={handleEditSubmit}>
                 <label className='nudge'>Count: </label>
                 <input
                     type='number'
+                    required
+                    placeholder={routineActivityToEdit.count}
                     onChange={(e) => { setCount(e.target.value) }}
                 />
 
-                <button
+                <Button
                         className='nudge'
-                        onClick={(e) => {
-                            e.preventDefault();
-                            Swal.fire({
-                                title: 'Submit these changes?',
-                                icon: 'question',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Yes, looks good!'
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  Swal.fire(
-                                    'Success!',
-                                    'Your routine-activity has been updated!',
-                                    'success'
-                                  )
-                                    editRoutineActivity(routineActivityIdToEdit, newRoutineActivityInfo)
-                                    navigate('../MyRoutines')
-                                }
-                              })
-                        }}> Submit Changes
-                </button>          
-                <button 
+                        type='submit'
+                > Change Count
+                </Button>          
+                <Button 
                     onClick={(e) => {
                         e.preventDefault();
                         Swal.fire({
@@ -109,7 +113,7 @@ const EditRoutineActivityForm = ({ routines, setActivities, setRoutines }) => {
                             }
                           })
                     }}>Remove Activity From Routine
-                </button> 
+                </Button> 
             </form>
         </div>
     )
